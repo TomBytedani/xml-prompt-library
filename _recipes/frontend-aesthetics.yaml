@@ -1,0 +1,8 @@
+group: frontend
+output: "009 - Frontend aesthetics prompt.md"
+
+structure:
+  - code_block:
+      language: xml
+      parts:
+        - section: frontend_aesthetics

@@ -1,0 +1,26 @@
+group: test-cases
+output: "006 - single cell w-AC to formatted test cases.md"
+
+structure:
+  - instructions: |
+      Take the output from the previous prompt and paste it as input in this one.
+
+  - heading: "Prompt"
+    level: 2
+    code_block:
+      language: xml
+      parts:
+        - section: intro
+          separator: "\n"
+        - section: example_excel_cells
+          separator: "\n"
+        - section: task
+          separator: "\n"
+        - section: example_output
+          separator: "\n"
+        - section: output_column_mapping
+          separator: "\n"
+        - user_input:
+            tag: "excel_input"
+          separator: "\n"
+        - inline: "Please carefully execute the given task."

@@ -1,0 +1,15 @@
+group: follow-up
+output: "004 - Follow up vehicle prompt example.md"
+
+structure:
+  - code_block:
+      language: xml
+      parts:
+        - section: instructions
+          separator: "\n"
+        - section: vehicleTemplate_info
+          separator: "\n"
+        - section: vehicleTemplate
+          separator: "\n"
+        - user_input:
+            tag: "follow-up-prompt"

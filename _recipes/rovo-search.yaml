@@ -1,0 +1,10 @@
+group: rovo
+output: "008 - Rovo search prompt.md"
+
+structure:
+  - code_block:
+      language: xml
+      parts:
+        - section: rulesToFollow
+          separator: "\n"
+        - inline: "<query></query>"

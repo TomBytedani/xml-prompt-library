@@ -1,0 +1,36 @@
+group: bug-scribe
+output: "002 - Example CRM bug prompt.md"
+
+structure:
+  - code_block:
+      language: xml
+      parts:
+        - inline: "<custom-instructions>"
+          separator: "\n"
+        - section: intro-crm
+          separator: "\n"
+        - section: goal-mg-crm
+          separator: "\n"
+        - section: firstResponse-mg-crm
+          separator: "\n"
+        - section: default_and_norms-crm
+          separator: "\n"
+        - section: pre-template-crm
+          separator: "\n"
+        - section: template-crm
+          separator: "\n"
+        - section: behavioralRules
+          separator: "\n"
+        - section: followupPrompt-crm
+          separator: "\n"
+        - section: vehicleTemplate_info-crm
+          separator: "\n"
+        - section: vehicleTemplate-crm
+          separator: "\n"
+        - inline: "</custom-instructions>"
+          separator: "\n"
+        - inline: "#####"
+          separator: "\n"
+        - user_input:
+            tag: "prompt"
+            placeholder: "In GP STAGE <-> CRM DEV"

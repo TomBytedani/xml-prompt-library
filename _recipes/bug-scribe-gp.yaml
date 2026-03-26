@@ -1,0 +1,29 @@
+group: bug-scribe
+output: "000 - Example GP copypastable prompt.md"
+
+structure:
+  - code_block:
+      language: xml
+      parts:
+        - inline: "<custom-instructions>"
+          separator: "\n"
+        - section: intro-gp-mg
+          separator: "\n"
+        - section: goal-gp
+          separator: "\n"
+        - section: firstResponse-gp
+          separator: "\n"
+        - section: default_and_norms-gp
+          separator: "\n"
+        - section: pre-template-gp-mg
+          separator: "\n"
+        - section: template-gp-mg
+          separator: "\n"
+        - section: behavioralRules
+          separator: "\n"
+        - inline: "</custom-instructions>"
+          separator: "\n"
+        - inline: "#######"
+          separator: "\n"
+        - user_input:
+            tag: "prompt"

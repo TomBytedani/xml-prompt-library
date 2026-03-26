@@ -1,0 +1,19 @@
+group: test-cases
+output: "005 - Create excel column from AC example.md"
+
+structure:
+  - instructions: |
+      First, copy the Acceptance Criteria table into an empty Excel, clean it up and line up the Criteria with the filled cells/rows. And then paste it as CSV file in this prompt.
+
+  - heading: "Prompt"
+    level: 2
+    code_block:
+      language: xml
+      parts:
+        - user_input:
+            tag: "csv_file"
+            placeholder: "paste here"
+          separator: "\n"
+        - section: ac-to-checklist-task
+          separator: "\n"
+        - section: ac-checklist-example-output
