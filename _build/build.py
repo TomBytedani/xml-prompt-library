@@ -15,6 +15,11 @@ from config_loader import load_config, resolve_recipes_dir, resolve_output_path,
 from recipe_parser import parse_recipe
 from renderer import render
 
+try:
+    from version import auto_commit_if_changed
+except ImportError:
+    auto_commit_if_changed = None
+
 
 def discover_recipes(config: dict) -> list[Path]:
     """Find all .yaml recipe files."""
@@ -162,6 +167,10 @@ def main():
         build_single(recipe_path, config, dry_run=args.dry_run)
     else:
         build_all(config, dry_run=args.dry_run)
+
+    # Auto-commit if not in dry-run/check mode
+    if not args.dry_run and not args.check and auto_commit_if_changed:
+        auto_commit_if_changed(config)
 
 
 if __name__ == "__main__":
