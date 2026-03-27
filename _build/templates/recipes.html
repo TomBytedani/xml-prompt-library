@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Recipes — Prompt Library{% endblock %}
+{% block content %}
+<h1>Recipes</h1>
+<p>{{ recipes|length }} recipe(s)</p>
+
+<table>
+    <thead>
+        <tr>
+            <th>Recipe</th>
+            <th>Output</th>
+            <th>Group</th>
+            <th>Sections</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for r in recipes %}
+        <tr>
+            <td><a href="{{ url_for('recipe_detail', name=r.name) }}">{{ r.name }}</a></td>
+            <td><small>{{ r.output }}</small></td>
+            <td><span class="badge">{{ r.group }}</span></td>
+            <td>{{ r.section_count }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

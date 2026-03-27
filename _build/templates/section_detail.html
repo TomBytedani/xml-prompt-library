@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}{{ name }} — Sections{% endblock %}
+{% block content %}
+<hgroup>
+    <h1>{{ name }}</h1>
+    <p>{{ group }}/{{ name }}.md</p>
+</hgroup>
+
+<div class="impact-panel">
+    <strong>Used by:</strong>
+    {% if recipes_using %}
+        {% for r in recipes_using %}
+        <a href="{{ url_for('recipe_detail', name=r) }}">{{ r }}</a>{% if not loop.last %}, {% endif %}
+        {% endfor %}
+    {% else %}
+        <em>No recipes reference this section.</em>
+    {% endif %}
+</div>
+
+<h2>Content</h2>
+<pre class="content-preview"><code>{{ content }}</code></pre>
+
+{% if history %}
+<h2>Version History</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Hash</th>
+            <th>Date</th>
+            <th>Message</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for entry in history %}
+        <tr>
+            <td><code>{{ entry.short_hash }}</code></td>
+            <td>{{ entry.date[:10] }}</td>
+            <td>{{ entry.message }}</td>
+            <td>
+                <a href="{{ url_for('rollback_confirm', group=group, name=name, hash=entry.hash) }}" role="button" class="outline secondary" style="padding:0.25rem 0.5rem;font-size:0.8rem;">Revert</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p><em>No version history available.</em></p>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}{{ name }} — Recipes{% endblock %}
+{% block content %}
+<hgroup>
+    <h1>{{ name }}</h1>
+    <p>Output: {{ recipe.output }}</p>
+</hgroup>
+
+<div class="grid">
+    <div>
+        <h2>Sections</h2>
+        <ul class="item-list">
+            {% for s in sections %}
+            <li>
+                {% if s.group %}
+                <a href="{{ url_for('section_detail', group=s.group, name=s.name) }}">{{ s.name }}</a>
+                <span class="badge badge-muted">{{ s.group }}/</span>
+                {% else %}
+                <span>{{ s.name }}</span>
+                <span class="badge badge-muted">{{ s.kind }}</span>
+                {% endif %}
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div>
+        <h2>Stable Tags</h2>
+        {% if tags %}
+        <ul class="item-list">
+            {% for t in tags %}
+            <li>{{ t }}</li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p><em>No stable tags yet.</em></p>
+        {% endif %}
+
+        <form method="POST" action="{{ url_for('do_tag', name=name) }}" style="margin-top:1rem;">
+            <div class="grid">
+                <input type="text" name="label" placeholder="Label (optional)">
+                <button type="submit" class="outline">Mark as Stable</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<h2>Preview</h2>
+<details>
+    <summary>Show assembled output</summary>
+    <pre class="content-preview"><code>{{ preview }}</code></pre>
+</details>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Sections — Prompt Library{% endblock %}
+{% block content %}
+<h1>Sections</h1>
+<p>{{ total_count }} section(s) across {{ groups|length }} group(s)</p>
+
+{% for group_name, sections in groups.items() %}
+<details open>
+    <summary><strong>{{ group_name }}/</strong> ({{ sections|length }})</summary>
+    <ul class="item-list">
+        {% for s in sections %}
+        <li>
+            <a href="{{ url_for('section_detail', group=group_name, name=s.name) }}">{{ s.name }}</a>
+            <span>
+                {% if s.recipe_count > 0 %}
+                <span class="badge">{{ s.recipe_count }} recipe{{ 's' if s.recipe_count != 1 }}</span>
+                {% else %}
+                <span class="badge badge-muted">unused</span>
+                {% endif %}
+            </span>
+        </li>
+        {% endfor %}
+    </ul>
+</details>
+{% endfor %}
+{% endblock %}

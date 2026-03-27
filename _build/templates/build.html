@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}Build — Prompt Library{% endblock %}
+{% block content %}
+<h1>Build</h1>
+
+<div class="grid">
+    <form method="POST" action="{{ url_for('do_build') }}">
+        <button type="submit" class="contrast">Rebuild All</button>
+    </form>
+    <form method="POST" action="{{ url_for('do_build') }}">
+        <div class="grid">
+            <input type="text" name="recipe" placeholder="Recipe name (e.g. bug-scribe-gp)">
+            <button type="submit" class="outline">Rebuild Single</button>
+        </div>
+    </form>
+</div>
+
+{% if results %}
+<h2>Build Results</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Recipe</th>
+            <th>Output</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for r in results %}
+        <tr>
+            <td>{{ r.recipe }}</td>
+            <td><small>{{ r.output }}</small></td>
+            <td>
+                {% if r.changed %}
+                <span class="badge">updated</span>
+                {% else %}
+                <span class="badge badge-muted">unchanged</span>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endif %}
+
+{% if build_log %}
+<h2>Build Log</h2>
+<pre><code>{{ build_log }}</code></pre>
+{% endif %}
+{% endblock %}

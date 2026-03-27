@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}Dashboard — Prompt Library{% endblock %}
+{% block content %}
+<h1>Dashboard</h1>
+
+<div class="stats-grid">
+    <article class="stat-card">
+        <span class="value">{{ section_count }}</span>
+        <span class="label">Sections</span>
+    </article>
+    <article class="stat-card">
+        <span class="value">{{ recipe_count }}</span>
+        <span class="label">Recipes</span>
+    </article>
+    <article class="stat-card">
+        <span class="value">{{ group_count }}</span>
+        <span class="label">Groups</span>
+    </article>
+    <article class="stat-card">
+        <span class="value">{{ 'Yes' if has_uncommitted else 'No' }}</span>
+        <span class="label">Uncommitted Changes</span>
+    </article>
+</div>
+
+{% if last_commit %}
+<p><small>Last version: {{ last_commit.short_hash }} &mdash; {{ last_commit.message }} ({{ last_commit.date[:10] }})</small></p>
+{% endif %}
+
+<div class="grid">
+    <form method="POST" action="{{ url_for('do_build') }}">
+        <button type="submit" class="contrast">Rebuild All</button>
+    </form>
+</div>
+
+{% if recent_activity %}
+<h2>Recent Activity</h2>
+<ul class="item-list">
+    {% for entry in recent_activity %}
+    <li>
+        <span><code>{{ entry.short_hash }}</code> {{ entry.message }}</span>
+        <small>{{ entry.date[:10] }}</small>
+    </li>
+    {% endfor %}
+</ul>
+{% endif %}
+{% endblock %}

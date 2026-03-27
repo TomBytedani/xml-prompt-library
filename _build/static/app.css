@@ -1,0 +1,138 @@
+/* Prompt Library Maintainer — App styles */
+
+:root {
+    --pico-font-size: 16px;
+}
+
+/* Dashboard cards */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.stat-card {
+    text-align: center;
+    padding: 1.5rem;
+    border-radius: 8px;
+    background: var(--pico-card-background-color);
+    border: 1px solid var(--pico-muted-border-color);
+}
+
+.stat-card .value {
+    font-size: 2rem;
+    font-weight: 700;
+    display: block;
+}
+
+.stat-card .label {
+    font-size: 0.85rem;
+    color: var(--pico-muted-color);
+}
+
+/* Section/recipe lists */
+.item-list {
+    list-style: none;
+    padding: 0;
+}
+
+.item-list li {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--pico-muted-border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.item-list li:last-child {
+    border-bottom: none;
+}
+
+.badge {
+    display: inline-block;
+    padding: 0.15rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    background: var(--pico-primary-background);
+    color: var(--pico-primary-inverse);
+}
+
+.badge-muted {
+    background: var(--pico-muted-border-color);
+    color: var(--pico-muted-color);
+}
+
+/* Diff view */
+.diff-table {
+    font-family: monospace;
+    font-size: 0.85rem;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.diff-table td {
+    padding: 0.1rem 0.5rem;
+    white-space: pre-wrap;
+    word-break: break-all;
+}
+
+.diff-add {
+    background: rgba(46, 160, 67, 0.15);
+}
+
+.diff-del {
+    background: rgba(248, 81, 73, 0.15);
+}
+
+.diff-hunk {
+    background: rgba(56, 132, 244, 0.1);
+    color: var(--pico-muted-color);
+}
+
+/* Impact panel */
+.impact-panel {
+    padding: 1rem;
+    border-radius: 8px;
+    background: var(--pico-card-background-color);
+    border: 1px solid var(--pico-muted-border-color);
+    margin-bottom: 1rem;
+}
+
+/* Flash messages */
+.flash {
+    padding: 0.75rem 1rem;
+    border-radius: 6px;
+    margin-bottom: 1rem;
+}
+
+.flash-success {
+    background: rgba(46, 160, 67, 0.15);
+    border: 1px solid rgba(46, 160, 67, 0.3);
+}
+
+.flash-error {
+    background: rgba(248, 81, 73, 0.15);
+    border: 1px solid rgba(248, 81, 73, 0.3);
+}
+
+/* Content preview */
+pre.content-preview {
+    max-height: 400px;
+    overflow-y: auto;
+    font-size: 0.85rem;
+}
+
+/* Nav active state */
+nav a[aria-current="page"] {
+    font-weight: 700;
+}
+
+/* Collapsible details */
+details summary {
+    cursor: pointer;
+}
+
+details[open] summary {
+    margin-bottom: 0.5rem;
+}

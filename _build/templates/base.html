@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Prompt Library{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='pico.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='app.css') }}">
+</head>
+<body>
+    <nav class="container-fluid">
+        <ul>
+            <li><strong>Prompt Library</strong></li>
+        </ul>
+        <ul>
+            <li><a href="{{ url_for('dashboard') }}" {% if request.endpoint == 'dashboard' %}aria-current="page"{% endif %}>Dashboard</a></li>
+            <li><a href="{{ url_for('sections_browser') }}" {% if request.endpoint and 'section' in request.endpoint %}aria-current="page"{% endif %}>Sections</a></li>
+            <li><a href="{{ url_for('recipes_browser') }}" {% if request.endpoint and 'recipe' in request.endpoint %}aria-current="page"{% endif %}>Recipes</a></li>
+            <li><a href="{{ url_for('build_view') }}" {% if request.endpoint == 'build_view' %}aria-current="page"{% endif %}>Build</a></li>
+        </ul>
+    </nav>
+
+    <main class="container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+            <div class="flash flash-{{ category }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="container">
+        <small>Prompt Library Maintainer v1.1</small>
+    </footer>
+</body>
+</html>

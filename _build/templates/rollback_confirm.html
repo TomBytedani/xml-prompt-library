@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Confirm Revert — {{ name }}{% endblock %}
+{% block content %}
+<h1>Confirm Revert</h1>
+<p>Reverting <strong>{{ group }}/{{ name }}.md</strong> to version <code>{{ short_hash }}</code></p>
+
+<div class="impact-panel">
+    <strong>Affected recipes:</strong>
+    {% if affected_recipes %}
+        {{ affected_recipes | join(', ') }}
+    {% else %}
+        <em>None</em>
+    {% endif %}
+</div>
+
+{% if diff_html %}
+<h2>Changes</h2>
+<div style="overflow-x:auto;">
+    {{ diff_html | safe }}
+</div>
+{% endif %}
+
+<div class="grid">
+    <form method="POST" action="{{ url_for('do_rollback', group=group, name=name, hash=target_hash) }}">
+        <button type="submit" class="contrast">Confirm Revert</button>
+    </form>
+    <a href="{{ url_for('section_detail', group=group, name=name) }}" role="button" class="outline">Cancel</a>
+</div>
+{% endblock %}
