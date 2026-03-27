@@ -10,18 +10,18 @@
 <intro>The assistant should help the user parse the following Excel/csv cells into a table of test cases that are divided into
 </intro>
 <example_excel_cells>
-|Criteria: Imported configuration flow - new vehicle configuration; Given: A Quotation is created and is not Expired, Declined, or Cancelled; When: A user clicks the “Add Configuration” CTA at the bottom of the Quotation Summary page; Then: The user is redirected to the page for importing a new configuration (simulation or import)|
-|Criteria: Imported configuration flow - new vehicle configuration; Given: A new configuration is imported and the user is on the vehicle configuration page; When: The user clicks “Close”; Then: The user is redirected back to the Quotation Summary page without saving changes|
-|Criteria: Imported configuration flow - new vehicle configuration; Given: A new configuration is imported and the user is on the vehicle configuration page; When: The user clicks “Confirm”; Then: The Configuration is saved and user is redirected to the Quotation Summary page with the new Configuration|
-|Criteria: Imported configuration - number of vehicles; Given: A vehicle configuration is imported into GATE Portal; When: The Vehicle amount parameter is passed from CPQ; Then: The Vehicle amount is disregarded and does not affect the contracts generated from the attached Options|
-|Criteria: Add Option flow; Given: A Quotation is not Expired or Cancelled, and the Configuration is not Rejected; When: A user clicks “Add Option”; Then: The user is redirected to a dedicated Option setup page without the stepper, and with a “Close” button at the bottom|
-|Criteria: Add Option flow; Given: A user is on the dedicated Option setup page; When: The user clicks “Close”; Then: The system exits the page without saving changes|
-|Criteria: Add Option flow; Given: A user is on the dedicated Option setup page; When: The user completes Option setup and clicks “Save”; Then: The Option is saved and linked to the current Quotation|
-|Criteria: SIS reviewing a vehicle configuration; Given: A SIS user is viewing a non-eligible Configuration; When: The user clicks the “Edit Configuration” button; Then: The vehicle customisation page is displayed|
-|Criteria: SIS reviewing a vehicle configuration; Given: The Configuration has a vehicle body; When: The SIS user accesses the customisation page; Then: The user can edit the vehicle body price|
-|Criteria: SIS reviewing a vehicle configuration; Given: A SIS user accesses the customisation page; When: The user sees the Refurbishing Price field; Then: The field is editable and not visible to Dealer users|
-|Criteria: SIS reviewing a vehicle configuration; Given: A SIS user changes body price or Refurbishing Price; When: The user clicks “Confirm & Proceed”; Then: All Options in that Configuration are recalculated and the Quotation Summary page is shown|
-|Criteria: SIS reviewing a vehicle configuration; Given: A SIS user is reviewing a Configuration; When: The user clicks “Back”; Then: No changes are saved and the user is redirected to the Quotation Summary page|
+|Criteria: Imported configuration flow - new vehicle configuration; Given: A Quotation is created and is not Expired, Declined, or Cancelled; When: A user clicks the "Add Configuration" CTA at the bottom of the Quotation Summary page; Then: The user is redirected to the page for importing a new configuration (simulation or import)|
+|Criteria: Imported configuration flow - new vehicle configuration; Given: A new configuration is imported and the user is on the vehicle configuration page; When: The user clicks "Close"; Then: The user is redirected back to the Quotation Summary page without saving changes|
+|Criteria: Imported configuration flow - new vehicle configuration; Given: A new configuration is imported and the user is on the vehicle configuration page; When: The user clicks "Confirm"; Then: The Configuration is saved and user is redirected to the Quotation Summary page with the new Configuration|
+|Criteria: Imported configuration - number of vehicles; Given: A vehicle configuration is imported into FleetPortal; When: The Vehicle amount parameter is passed from CPQ; Then: The Vehicle amount is disregarded and does not affect the contracts generated from the attached Options|
+|Criteria: Add Option flow; Given: A Quotation is not Expired or Cancelled, and the Configuration is not Rejected; When: A user clicks "Add Option"; Then: The user is redirected to a dedicated Option setup page without the stepper, and with a "Close" button at the bottom|
+|Criteria: Add Option flow; Given: A user is on the dedicated Option setup page; When: The user clicks "Close"; Then: The system exits the page without saving changes|
+|Criteria: Add Option flow; Given: A user is on the dedicated Option setup page; When: The user completes Option setup and clicks "Save"; Then: The Option is saved and linked to the current Quotation|
+|Criteria: ISU reviewing a vehicle configuration; Given: An ISU user is viewing a non-eligible Configuration; When: The user clicks the "Edit Configuration" button; Then: The vehicle customisation page is displayed|
+|Criteria: ISU reviewing a vehicle configuration; Given: The Configuration has a vehicle body; When: The ISU user accesses the customisation page; Then: The user can edit the vehicle body price|
+|Criteria: ISU reviewing a vehicle configuration; Given: An ISU user accesses the customisation page; When: The user sees the Refurbishing Price field; Then: The field is editable and not visible to Dealer users|
+|Criteria: ISU reviewing a vehicle configuration; Given: An ISU user changes body price or Refurbishing Price; When: The user clicks "Confirm & Proceed"; Then: All Options in that Configuration are recalculated and the Quotation Summary page is shown|
+|Criteria: ISU reviewing a vehicle configuration; Given: An ISU user is reviewing a Configuration; When: The user clicks "Back"; Then: No changes are saved and the user is redirected to the Quotation Summary page|
 </example_excel_cells>
 <task>
 Given the pasted_excel_cells that provide a table of acceptance criteria contained in a single cell, for each criteria provided produce a Test Case that incorporates the content of the cell in different columns, with the correct column header. The assistant should be very careful to follow the output_column_mapping provided at the end of this prompt. It shouldn't leave out any details. Output each description in a TSV formatted code block that follows the example_output format.
@@ -29,26 +29,26 @@ Given the pasted_excel_cells that provide a table of acceptance criteria contain
 <example_output>
 ```tsv
 Issue ID Summary Description Label Action Data Expected Result Test Type
-1 Imported configuration flow - new vehicle configuration - Add button A Quotation is created and is not Expired, Declined, or Cancelled SIT,GatePortal A user clicks the “Add Configuration” CTA at the bottom of the Quotation Summary page  The user is redirected to the page for importing a new configuration (simulation or import) Manual
-2 Imported configuration flow - new vehicle configuration -Close  A new configuration is imported and the user is on the vehicle configuration page SIT,GatePortal The user clicks “Close”  The user is redirected back to the Quotation Summary page without saving changes Manual
-3 Imported configuration flow - new vehicle configuration - Confirm A new configuration is imported and the user is on the vehicle configuration page SIT,GatePortal The user clicks “Confirm”  The Configuration is saved and user is redirected to the Quotation Summary page with the new Configuration Manual
-4 Imported configuration - number of vehicles A vehicle configuration is imported into GATE Portal SIT,GatePortal The Vehicle amount parameter is passed from CPQ  The Vehicle amount is disregarded and does not affect the contracts generated from the attached Options Manual
-5 Add Option flow - Add A Quotation is not Expired or Cancelled, and the Configuration is not Rejected SIT,GatePortal A user clicks “Add Option”  The user is redirected to a dedicated Option setup page without the stepper, and with a “Close” button at the bottom Manual
-6 Add Option flow - Close A user is on the dedicated Option setup page SIT,GatePortal The user clicks “Close”  The system exits the page without saving changes Manual
-7 Add Option flow - Save A user is on the dedicated Option setup page SIT,GatePortal The user completes Option setup and clicks “Save”  The Option is saved and linked to the current Quotation Manual
-8 SIS reviewing a vehicle configuration - Non eligible config A SIS user is viewing a non-eligible Configuration SIT,GatePortal The user clicks the “Edit Configuration” button  The vehicle customisation page is displayed Manual
-9 SIS reviewing a vehicle configuration - Vehicle body The Configuration has a vehicle body SIT,GatePortal The SIS user accesses the customisation page  The user can edit the vehicle body price Manual
-10 SIS reviewing a vehicle configuration - Customisation page A SIS user accesses the customisation page SIT,GatePortal The user sees the Refurbishing Price field  The field is editable and not visible to Dealer users Manual
-11 SIS reviewing a vehicle configuration - Body price or refurbishment A SIS user changes body price or Refurbishing Price SIT,GatePortal The user clicks “Confirm & Proceed”  All Options in that Configuration are recalculated and the Quotation Summary page is shown Manual
-12 SIS reviewing a vehicle configuration - Config reviewing A SIS user is reviewing a Configuration SIT,GatePortal The user clicks “Back”  No changes are saved and the user is redirected to the Quotation Summary page Manual
-13 SIS reviewing a vehicle configuration - Config reviewed A SIS user has reviewed a Configuration SIT,GatePortal The user selects Accept or Reject, enters a comment, and clicks Submit  The review is submitted and stored Manual
+1 Imported configuration flow - new vehicle configuration - Add button A Quotation is created and is not Expired, Declined, or Cancelled SIT,FleetPortal A user clicks the "Add Configuration" CTA at the bottom of the Quotation Summary page  The user is redirected to the page for importing a new configuration (simulation or import) Manual
+2 Imported configuration flow - new vehicle configuration -Close  A new configuration is imported and the user is on the vehicle configuration page SIT,FleetPortal The user clicks "Close"  The user is redirected back to the Quotation Summary page without saving changes Manual
+3 Imported configuration flow - new vehicle configuration - Confirm A new configuration is imported and the user is on the vehicle configuration page SIT,FleetPortal The user clicks "Confirm"  The Configuration is saved and user is redirected to the Quotation Summary page with the new Configuration Manual
+4 Imported configuration - number of vehicles A vehicle configuration is imported into FleetPortal SIT,FleetPortal The Vehicle amount parameter is passed from CPQ  The Vehicle amount is disregarded and does not affect the contracts generated from the attached Options Manual
+5 Add Option flow - Add A Quotation is not Expired or Cancelled, and the Configuration is not Rejected SIT,FleetPortal A user clicks "Add Option"  The user is redirected to a dedicated Option setup page without the stepper, and with a "Close" button at the bottom Manual
+6 Add Option flow - Close A user is on the dedicated Option setup page SIT,FleetPortal The user clicks "Close"  The system exits the page without saving changes Manual
+7 Add Option flow - Save A user is on the dedicated Option setup page SIT,FleetPortal The user completes Option setup and clicks "Save"  The Option is saved and linked to the current Quotation Manual
+8 ISU reviewing a vehicle configuration - Non eligible config An ISU user is viewing a non-eligible Configuration SIT,FleetPortal The user clicks the "Edit Configuration" button  The vehicle customisation page is displayed Manual
+9 ISU reviewing a vehicle configuration - Vehicle body The Configuration has a vehicle body SIT,FleetPortal The ISU user accesses the customisation page  The user can edit the vehicle body price Manual
+10 ISU reviewing a vehicle configuration - Customisation page An ISU user accesses the customisation page SIT,FleetPortal The user sees the Refurbishing Price field  The field is editable and not visible to Dealer users Manual
+11 ISU reviewing a vehicle configuration - Body price or refurbishment An ISU user changes body price or Refurbishing Price SIT,FleetPortal The user clicks "Confirm & Proceed"  All Options in that Configuration are recalculated and the Quotation Summary page is shown Manual
+12 ISU reviewing a vehicle configuration - Config reviewing An ISU user is reviewing a Configuration SIT,FleetPortal The user clicks "Back"  No changes are saved and the user is redirected to the Quotation Summary page Manual
+13 ISU reviewing a vehicle configuration - Config reviewed An ISU user has reviewed a Configuration SIT,FleetPortal The user selects Accept or Reject, enters a comment, and clicks Submit  The review is submitted and stored Manual
 ```
 </example_output>
 <output_column_mapping>
 1. `ID` - start with 1 and increase for each row
 2. `Summary` - should contain the text after the corresponding "Criteria:" and until the first semicolon
 3. `Description` - should contain the text after the corresponding "Given:" and until the second semicolon
-4. `Label` - should always include the content "SIT,GatePortal"
+4. `Label` - should always include the content "SIT,FleetPortal"
 5. `Action` - should contain the text after the corresponding "When:" and until the third semicolon
 6. `Data` - should remain empty but the column should be still present
 7. `Expected Result` - should contain the text after the corresponding "Then:" and until the end of the single given entry

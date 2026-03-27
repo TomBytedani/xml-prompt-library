@@ -1,3 +1,4 @@
+```````````xml
 <vehicleTemplate>
 ```markdown
 ___
@@ -22,3 +23,4 @@ ___
 **Tyres**: `Yes`
 ```
 </vehicleTemplate>
+```````````

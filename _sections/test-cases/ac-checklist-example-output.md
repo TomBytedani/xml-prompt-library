@@ -1,10 +1,12 @@
+```````````xml
 <example_output>
-Criteria: appNAME admin data stored on AF as technical manager; Given: The contract is in ready for onboarding status; When: the dealer enters data into the dedicated “appNAME admin data” section:; Then: the contact is stored on AF as Technical manager
-Criteria: appNAME admin data stored on AF as technical manager; Given: The contract is in to be reviewed (data quality)status; When: appNAME admin data hasn’t been entered by dealer; Then: SIS must enter data of the contact that will be stored on AF as Technical manager
-Criteria: appNAME admin data mandatory for the SIS; Given: The contract is in to be reviewed (data quality) status; When: the SIS user either deletes mandatory data entered by dealer from the dedicated “appNAME admin data” section or doesn’t enter data in case of empty fields; Then: the “Confirm review and involve Credit Risk” button is disabled
-Criteria: Technical manager data update; Given: A technical manager is already available in the contacts list on AF; When: the SIS edits it on AF; Then: Existing technical manager data on AF is overwritten by new data
-Criteria: Contract activation: Email to the company address; Given: The customer provides the company email for general communication; When: the contract is in activated status; Then: the contract activation email containing the “welcome letter” pdf is sent to the company address.
+Criteria: appNAME admin data stored on FinancePlan as technical manager; Given: The contract is in ready for onboarding status; When: the dealer enters data into the dedicated "appNAME admin data" section:; Then: the contact is stored on FinancePlan as Technical manager
+Criteria: appNAME admin data stored on FinancePlan as technical manager; Given: The contract is in to be reviewed (data quality)status; When: appNAME admin data hasn't been entered by dealer; Then: ISU must enter data of the contact that will be stored on FinancePlan as Technical manager
+Criteria: appNAME admin data mandatory for the ISU; Given: The contract is in to be reviewed (data quality) status; When: the ISU user either deletes mandatory data entered by dealer from the dedicated "appNAME admin data" section or doesn't enter data in case of empty fields; Then: the "Confirm review and involve Credit Risk" button is disabled
+Criteria: Technical manager data update; Given: A technical manager is already available in the contacts list on AF; When: the ISU edits it on FinancePlan; Then: Existing technical manager data on AF is overwritten by new data
+Criteria: Contract activation: Email to the company address; Given: The customer provides the company email for general communication; When: the contract is in activated status; Then: the contract activation email containing the "welcome letter" pdf is sent to the company address.
 Criteria: Contract activation: Email to the company address; Given: the email is confirmed; When: the contract is active; Then: the appNAME admin activation email is sent to the technical manager address
 Criteria: New contract for the same customer; Given: The TM already exists for the company; When: the dealer is in the ready for onboarding page; Then: the appNAME admin section is hidden
-Criteria: New contract for the same customer; Given: The TM already exists for the company; When: the SIS is in the to be reviewed (Data Quality) page; Then: the appNAME admin section is hidden
+Criteria: New contract for the same customer; Given: The TM already exists for the company; When: the ISU is in the to be reviewed (Data Quality) page; Then: the appNAME admin section is hidden
 </example_output>
+```````````

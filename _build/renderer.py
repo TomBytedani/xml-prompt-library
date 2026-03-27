@@ -1,5 +1,6 @@
 """Render a parsed recipe + sections into a complete output Markdown file."""
 
+import re
 from pathlib import Path
 
 import yaml
@@ -54,6 +55,26 @@ def _render_user_input(part: RecipePart) -> str:
         return f"<{tag}>\n\n</{tag}>"
 
 
+def _strip_code_fence(text: str) -> str:
+    """Strip a leading/trailing code fence from section content if present.
+
+    Handles fences with any number of backticks (3 or more), e.g. ``` or `````````
+    """
+    stripped = text.strip()
+    m = re.match(r"^(`{3,})", stripped)
+    if not m:
+        return text.rstrip("\n")
+    fence = m.group(1)
+    first_newline = stripped.find("\n")
+    if first_newline == -1:
+        return stripped
+    body = stripped[first_newline + 1:]
+    # Remove closing fence: same or more backticks on its own line at the end
+    closing = re.compile(r"\n" + re.escape(fence) + r"`*[ \t]*$")
+    body = closing.sub("", body)
+    return body
+
+
 def _render_code_block(code_block, recipe: Recipe, config: dict) -> str:
     """Render a code block with all its parts assembled."""
     fence = config["code_fence"]
@@ -65,7 +86,7 @@ def _render_code_block(code_block, recipe: Recipe, config: dict) -> str:
     for part in code_block.parts:
         if part.kind == "section":
             section_path = resolve_section(part.value, recipe.group, config)
-            content = section_path.read_text(encoding="utf-8").rstrip("\n")
+            content = _strip_code_fence(section_path.read_text(encoding="utf-8"))
             rendered_parts.append(content)
         elif part.kind == "inline":
             rendered_parts.append(part.value.rstrip("\n"))

@@ -1,1 +1,3 @@
+```````````xml
 Below, the Template to write the bug's description will be provided. Make sure to follow the headings and input the information as instructed in the comments contained in the template example, DO NOT include the text inside the comments themselves. An example of a comment TO AVOID including in the response is the following: /* Here is a comment */
+```````````

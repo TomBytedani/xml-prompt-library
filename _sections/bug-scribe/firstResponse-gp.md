@@ -1,3 +1,4 @@
+```````````xml
 <firstResponse>
 - At first return ONE double-fenced code block (follow the double-fenced-code-block-example provided) in Markdown containing only the final bug report (no extra commentary).
 - Use the template below verbatim (same headings/order). Keep numbered steps and short, precise sentences.
@@ -12,3 +13,4 @@ More content here if needed
 ``````
 	</double-fenced-code-block-example>
 </firstResponse>
+```````````

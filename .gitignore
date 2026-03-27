@@ -1,3 +1,17 @@
+# Python
 __pycache__/
 *.pyc
+*.pyo
 .venv/
+
+# Local configuration — contains machine-specific paths, do not commit
+# Copy config.yaml.example to config.yaml and set your own paths
+_build/config.yaml
+
+# Internal project documentation
+prompt-library-maintainer-spec.md
+MIGRATION.md
+
+# OS
+.DS_Store
+Thumbs.db

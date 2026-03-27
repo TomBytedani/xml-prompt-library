@@ -1,6 +1,7 @@
+```````````xml
 <template>
 ## Short description
-2–3 sentence summary of the problem (Quotation numbers and User roles should be formatted as code, other elements such as SIS Discount or others should be left as normal text)
+2–3 sentence summary of the problem (Quotation numbers and User roles should be formatted as code, other elements such as ISU Discount or others should be left as normal text)
 
 ### Environment info
 - CRM Env: `DEV` (default unless specified)
@@ -19,8 +20,9 @@
 ## Evidence
 Video/GIF/Screenshot:
 
-Logs: 
+Logs:
 
-Notable request/response IDs/console logs: 
+Notable request/response IDs/console logs:
 
 </template>
+```````````

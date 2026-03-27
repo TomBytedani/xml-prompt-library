@@ -247,7 +247,9 @@ def recipe_detail(name):
     config = _config()
     root = _root()
     recipes_dir = resolve_recipes_dir(config)
-    recipe_path = recipes_dir / f"{name}.yaml"
+    recipe_path = recipes_dir / f"{name}.md"
+    if not recipe_path.is_file():
+        recipe_path = recipes_dir / f"{name}.yaml"
 
     if not recipe_path.is_file():
         flash("Recipe not found.", "error")
@@ -326,7 +328,10 @@ def do_build():
 
     try:
         if recipe_name:
-            recipe_path = resolve_recipes_dir(config) / f"{recipe_name}.yaml"
+            recipes_dir = resolve_recipes_dir(config)
+            recipe_path = recipes_dir / f"{recipe_name}.md"
+            if not recipe_path.is_file():
+                recipe_path = recipes_dir / f"{recipe_name}.yaml"
             if not recipe_path.is_file():
                 flash(f"Recipe '{recipe_name}' not found.", "error")
                 sys.stdout = old_stdout

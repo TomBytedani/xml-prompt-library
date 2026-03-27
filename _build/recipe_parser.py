@@ -101,10 +101,28 @@ def _parse_structure_entry(raw: dict, recipe_path: Path) -> StructureEntry:
     return entry
 
 
+def _strip_yaml_fence(text: str) -> str:
+    """Strip a leading ```yaml ... ``` code fence if present (for .md recipe files)."""
+    import re
+    stripped = text.strip()
+    m = re.match(r"^(`{3,})", stripped)
+    if not m:
+        return text
+    fence = m.group(1)
+    first_newline = stripped.find("\n")
+    if first_newline == -1:
+        return text
+    body = stripped[first_newline + 1:]
+    closing = re.compile(r"\n" + re.escape(fence) + r"`*[ \t]*$")
+    body = closing.sub("", body)
+    return body
+
+
 def parse_recipe(recipe_path: Path) -> Recipe:
-    """Parse a recipe YAML file into a Recipe dataclass."""
+    """Parse a recipe file (.md with yaml fence, or raw .yaml) into a Recipe dataclass."""
     with open(recipe_path, "r", encoding="utf-8") as f:
-        data = yaml.safe_load(f)
+        raw = f.read()
+    data = yaml.safe_load(_strip_yaml_fence(raw))
 
     if not isinstance(data, dict):
         raise ValueError(f"In {recipe_path}: expected a YAML mapping at top level")

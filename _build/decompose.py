@@ -776,15 +776,16 @@ def decompose(
     # Step 5: Write recipe
     recipe_stem = _make_recipe_stem(prompt_path.name, group)
     recipes_dir = resolve_recipes_dir(config)
-    recipe_path = recipes_dir / f"{recipe_stem}.yaml"
+    recipe_path = recipes_dir / f"{recipe_stem}.md"
+    recipe_md = f"```yaml\n{recipe_yaml}```\n"
 
     if dry_run:
-        print(f"\n--- Draft recipe ({recipe_stem}.yaml) ---")
-        print(recipe_yaml)
+        print(f"\n--- Draft recipe ({recipe_stem}.md) ---")
+        print(recipe_md)
         print("--- End draft ---")
     else:
         recipes_dir.mkdir(parents=True, exist_ok=True)
-        recipe_path.write_text(recipe_yaml, encoding="utf-8")
+        recipe_path.write_text(recipe_md, encoding="utf-8")
         print(f"\n  [recipe] {recipe_path.relative_to(resolve_root())}")
 
     return {

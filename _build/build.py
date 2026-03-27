@@ -22,10 +22,13 @@ except ImportError:
 
 
 def discover_recipes(config: dict) -> list[Path]:
-    """Find all .yaml recipe files."""
+    """Find all recipe files (.md preferred, .yaml as fallback)."""
     recipes_dir = resolve_recipes_dir(config)
     if not recipes_dir.is_dir():
         return []
+    md_recipes = sorted(recipes_dir.glob("*.md"))
+    if md_recipes:
+        return md_recipes
     return sorted(recipes_dir.glob("*.yaml"))
 
 
@@ -143,7 +146,7 @@ def main():
     parser = argparse.ArgumentParser(
         description="Build Prompt Library output files from recipes and sections."
     )
-    parser.add_argument("--recipe", help="Build a single recipe by name (without .yaml)")
+    parser.add_argument("--recipe", help="Build a single recipe by name (without extension)")
     parser.add_argument("--dry-run", action="store_true", help="Show what would be generated without writing")
     parser.add_argument("--check", action="store_true", help="Verify all section references resolve")
     parser.add_argument("--deps", metavar="SECTION", help="Show which recipes use a given section")
@@ -160,9 +163,12 @@ def main():
         return
 
     if args.recipe:
-        recipe_path = resolve_recipes_dir(config) / f"{args.recipe}.yaml"
+        recipes_dir = resolve_recipes_dir(config)
+        recipe_path = recipes_dir / f"{args.recipe}.md"
         if not recipe_path.is_file():
-            print(f"Error: recipe '{args.recipe}' not found at {recipe_path}", file=sys.stderr)
+            recipe_path = recipes_dir / f"{args.recipe}.yaml"
+        if not recipe_path.is_file():
+            print(f"Error: recipe '{args.recipe}' not found in {recipes_dir}", file=sys.stderr)
             sys.exit(1)
         build_single(recipe_path, config, dry_run=args.dry_run)
     else:

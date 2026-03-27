@@ -1,3 +1,4 @@
+```````````xml
 <template>
 ## Short description
 /* 2–3 sentence summary of the problem. Quotation numbers and User roles should be formatted as code */
@@ -19,8 +20,9 @@
 ## Evidence
 Video/GIF/Screenshot:
 
-Logs: 
+Logs:
 
 Notable request/response IDs/console logs: /* include the request URL, error type and response string too when provided */
 
 </template>
+```````````
