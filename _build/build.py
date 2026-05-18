@@ -12,7 +12,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from config_loader import load_config, resolve_recipes_dir, resolve_output_path, resolve_section
-from recipe_parser import parse_recipe
+from recipe_parser import RecipeParseError, lint_recipe_file, parse_recipe
 from renderer import render
 
 try:
@@ -80,12 +80,71 @@ def build_single(recipe_path: Path, config: dict, dry_run: bool = False) -> dict
     }
 
 
+def validate_recipe_path(recipe_path: Path, config: dict) -> list[dict]:
+    """Validate one recipe's syntax, structure, and section references."""
+    errors = []
+
+    for diagnostic in lint_recipe_file(recipe_path):
+        if diagnostic.severity == "error":
+            errors.append({
+                "recipe": recipe_path.stem,
+                "error": diagnostic.format(recipe_path),
+            })
+
+    try:
+        recipe = parse_recipe(recipe_path)
+    except (RecipeParseError, ValueError) as e:
+        errors.append({
+            "recipe": recipe_path.stem,
+            "error": str(e),
+        })
+        return errors
+
+    for entry in recipe.structure:
+        if entry.code_block:
+            for part in entry.code_block.parts:
+                if part.kind == "section":
+                    try:
+                        resolve_section(part.value, recipe.group, config)
+                    except FileNotFoundError as e:
+                        errors.append({
+                            "recipe": recipe_path.stem,
+                            "section": part.value,
+                            "error": str(e),
+                        })
+
+    return errors
+
+
+def validate_recipe_paths(recipe_paths: list[Path], config: dict) -> list[dict]:
+    """Validate multiple recipes and collect all errors."""
+    errors = []
+    for recipe_path in recipe_paths:
+        errors.extend(validate_recipe_path(recipe_path, config))
+    return errors
+
+
+def print_validation_errors(errors: list[dict]):
+    """Print validation errors in a compact, readable format."""
+    print(f"\n{len(errors)} error(s) found:")
+    for err in errors:
+        print(f"\nRecipe '{err['recipe']}':")
+        for line in err["error"].splitlines():
+            print(f"  {line}")
+
+
 def build_all(config: dict, dry_run: bool = False) -> list[dict]:
     """Build all recipes."""
     recipe_paths = discover_recipes(config)
     if not recipe_paths:
         print("No recipes found.")
         return []
+
+    validation_errors = validate_recipe_paths(recipe_paths, config)
+    if validation_errors:
+        print("Build aborted because recipe validation failed.")
+        print_validation_errors(validation_errors)
+        raise SystemExit(1)
 
     print(f"Building {len(recipe_paths)} recipe(s)...")
     results = []
@@ -107,27 +166,18 @@ def check_all(config: dict) -> list[dict]:
     errors = []
     print(f"Checking {len(recipe_paths)} recipe(s)...")
     for recipe_path in recipe_paths:
-        recipe = parse_recipe(recipe_path)
-        for entry in recipe.structure:
-            if entry.code_block:
-                for part in entry.code_block.parts:
-                    if part.kind == "section":
-                        try:
-                            resolve_section(part.value, recipe.group, config)
-                        except FileNotFoundError as e:
-                            errors.append({
-                                "recipe": recipe_path.stem,
-                                "section": part.value,
-                                "error": str(e),
-                            })
+        recipe_errors = validate_recipe_path(recipe_path, config)
+        if recipe_errors:
+            print(f"  [error] {recipe_path.stem}")
+            errors.extend(recipe_errors)
+        else:
+            print(f"  [ok] {recipe_path.stem}")
 
     if errors:
-        print(f"\n{len(errors)} error(s) found:")
-        for err in errors:
-            print(f"  Recipe '{err['recipe']}': {err['error']}")
+        print_validation_errors(errors)
         return errors
     else:
-        print("All section references resolved successfully.")
+        print("All recipes valid and section references resolved successfully.")
         return []
 
 
@@ -169,6 +219,11 @@ def main():
             recipe_path = recipes_dir / f"{args.recipe}.yaml"
         if not recipe_path.is_file():
             print(f"Error: recipe '{args.recipe}' not found in {recipes_dir}", file=sys.stderr)
+            sys.exit(1)
+        validation_errors = validate_recipe_path(recipe_path, config)
+        if validation_errors:
+            print("Build aborted because recipe validation failed.")
+            print_validation_errors(validation_errors)
             sys.exit(1)
         build_single(recipe_path, config, dry_run=args.dry_run)
     else:
