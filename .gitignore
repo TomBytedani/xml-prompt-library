@@ -7,6 +7,7 @@ __pycache__/
 # Local configuration — contains machine-specific paths, do not commit
 # Copy config.yaml.example to config.yaml and set your own paths
 _build/config.yaml
+.claude/
 
 # Internal project documentation
 prompt-library-maintainer-spec.md
