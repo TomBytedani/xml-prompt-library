@@ -8,9 +8,9 @@ The user may provide a follow-up prompt containing the parameters for the vehicl
 </instructions>
 <vehicleTemplate_info>
 Below you can find the vehicle template, only edit and/or fill the text strings inside the double codeticks. If one of the specific **bolded** parameters isn't provided, fill it with the string `N/A`.
-Since the prompt will be transcribed, look out for transcription errors. Examples of transcription errors and how to correct them could be "nobody"→"No Body" (for Body type param); "Fourty-two see"→"42C" (for the Model versions, which are always two digits + the letter S or C).
+Since the prompt will be transcribed, look out for transcription errors. Examples of transcription errors and how to correct them could be "nobody"→"No Body" (for Body type param); "Fourty-two see"→"4232C" (for the Model versions, which are always two digits + the letter S or C).
 <vehicleTemplate_defaults>
-By default the parameters OPP code, Model year, Fast charger, Additional Items and Tyres should be left as provided in the template, unless specified by the user in the transcribed prompt.
+By default the parameters code, Model year, Fast charger, Additional Items and Tyres should be left as provided in the template, unless specified by the user in the transcribed prompt.
 </vehicleTemplate_defaults>
 </vehicleTemplate_info>
 <vehicleTemplate>
@@ -18,7 +18,7 @@ By default the parameters OPP code, Model year, Fast charger, Additional Items a
 ___
 ### Vehicle Parameters
 #### Configuration info
-**OPP code**: `N/A`
+**code**: `N/A`
 **Model year**: `MY24`
 **Vehicle type**: ``
 **Model version**: ``
@@ -26,14 +26,14 @@ ___
 **Body type**: ``
 **Body price**: ``
 **Mission type**: ``
-**ePTO hours**: `0`
+**working hours**: `0`
 **N° of batteries**: ``
 **Fast Charger selected**: `Yes`
 **Additional Items Amount**: `N/A`
 #### Option info
 **Years duration**: ``
 **KMs annual**: ``
-**Easy/Energy/eManager**: ``
+**Example**: ``
 **Tyres**: `Yes`
 ```
 </vehicleTemplate>
